@@ -1,0 +1,44 @@
+{% extends 'main.html' %}
+{% load static %}
+
+{% block link %}
+    <link rel="stylesheet" href="{% static 'styles/project_form.css' %}">
+{% endblock %}
+
+{% block content%}
+    <section>
+        <form class="submit-project-form" action="{% url 'submit-project'%}" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <!-- info -->
+            <div class="drop">
+                <div class="dropdown" data-dropdown>
+                    <button class="info-btn dropdown-btn" data-dropdown-button>
+                        <i class='bx bx-info-circle info-tooltip'data-dropdown-button></i>
+                    </button>
+                    <div class="dropdown-menu info-message-wrapper">
+                        <p class="info-message">Ensure your live link <span>startswith:</span>  <span>https://</span>  or <span>http://</span> </p>
+                    </div>
+                </div>
+            </div>
+            <!-- form -->
+            <h5 class="title">Submit Project</h5>
+            <div class="form-group">
+                <label for="id_title" class="form-label">Title</label>
+                {{ form.title }}
+            </div>
+            <div class="form-group image-group">
+                <label for="id_image" class="">Image</label>
+                {{ form.image }}
+            </div>
+            <div class="form-group">
+                <label for="id_description" class="form-label">Description</label>
+                {{ form.description }}
+            </div>
+            <div class="form-group">
+                <label for="id_live_link" class="form-label">Live Link</label>
+                {{ form.live_link }}
+            </div>
+            <input type="submit" value="Submit" class="btn submit-project-btn">
+        </form>
+    </section>
+{% endblock %}

@@ -1,0 +1,119 @@
+{% extends 'main.html' %}
+{% load static %}
+
+
+{% block link %}
+    <link rel="stylesheet" href="{% static 'styles/project.css' %}">
+{% endblock %}
+
+{% block content %}
+<section class="project-page">
+    <!-- Modal -->
+    <form class="rating-form modal" action="{% url 'add-rating' project.id %}" method="POST">
+        {% csrf_token %}
+        <div class="title">Submit Your Rating</div>
+        <div class="form-group">
+            <label for="id_creativity" class="form-label">Creativity</label>
+            {{ form.creativity }}
+        </div>
+        <div class="form-group">
+            {{ form.creativity.help_text }}
+        </div>
+        <div class="form-group">
+            <label for="id_design" class="form-label">Design</label>
+            {{ form.design }}
+        </div>
+        <div class="form-group">
+            {{ form.design.help_text }}
+        </div>
+        <div class="form-group">
+            <label for="id_usability" class="form-label">Usability</label>
+            {{ form.usability }}
+        </div>
+        <div class="form-group">
+            {{ form.usability.help_text }}
+        </div>
+        <div class="form-group">
+            <label for="id_content" class="form-label">Content</label>
+            {{ form.content }}
+        </div>
+        <div class="form-group">
+            {{ form.content.help_text }}
+        </div>
+        <input type="submit" class="submit-ratings-btn" value="Rate">
+    </form>
+    <div class="overlay" id="rate-overlay">
+        <i class='bx bx-x overlay-tooltip'></i>
+    </div>
+    <!-- Modal ends -->
+
+    <article class="project-wrapper">
+        <img class="project-image" src="{{ project.image.url }}" alt="One of {{project.user_project.user_profile.username}}'s Project">
+        <div class="project-details">
+            <div class="project-title">
+                <span>{{project.title}}</span>
+                <span>{{project.created|date:"F j" }} <i class='bx bx-calendar'></i></span>
+            </div>
+            <div class="split-details">
+                <div class="project-username">
+                    <span >by</span>
+                    <span><i class='bx bxs-badge-check'></i></span>
+                    <span>
+                        <a href="{% url 'profile' request.user.id %}"class="project-name">{{project.user_project.user_profile.username}}</a>
+                    </span>
+                </div>
+                <div class="project-description">
+                    {{project.description}}
+                </div>
+                <a class="link-route" href=" {{project.live_link}}" target="_blank">
+                    <span>Open</span>
+                    <i class='bx bx-link-external link-tooltip'></i>
+                </a>
+            </div>
+        </div>
+    </article>
+    <div class="project-ratings">
+        <div class="project-ratings-title">
+            <div class="uservotes">User Votes</div>
+            <div class="add-rating">
+                <button class="add-rating-btn activate-btn" >
+                    <span>Vote</span>
+                    <i class='bx bx-plus vote-tooltip'></i>
+                </button>
+                <div class="dropdown" data-dropdown>
+                    <button class="info-btn dropdown-btn" data-dropdown-button>
+                        <i class='bx bx-info-circle info-tooltip'data-dropdown-button></i>
+                    </button>
+                    <div class="dropdown-menu info-message-wrapper">
+                        <p class="info-message">Add your <span>rating</span> and the <span>average</span> will automatically be calculated</p>
+                    </div>
+                </div>
+            </div> 
+        </div>
+        <div class="ratings-container">
+            {% for rating in ratings %}
+            <div class="rating-wrapper">
+                <div class="rating name">
+                    <span class="user-object">{{rating.rated_by.username }} </span>
+                </div>
+                <div class="rating rating-elements">
+                    <div class="rating-objects">
+                        <span data-rating="creativity">{{rating.creativity}}</span>
+                        <span data-rating="design">{{rating.design}}</span>
+                        <span data-rating="usability">{{rating.usability}}</span>
+                        <span data-rating="content">{{rating.content}}</span>                          
+                    </div>
+                    <div class="print">
+                        <div class="print-text">DEV</div>
+                        <i class='bx bx-fingerprint fingerprint'></i>
+                    </div>
+                    <div class="average">
+                        <span>{{ rating.get_average }}</span>
+                    </div>
+                </div>  
+            </div>
+            {% endfor %}          
+        </div>
+    </div>
+</section>
+{% endblock %}
