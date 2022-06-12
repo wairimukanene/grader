@@ -1,0 +1,19 @@
+{% extends 'main.html' %}
+{% load static %}
+
+{% block prenavbar %}
+    {% include 'pre-navbar.html' %}
+{% endblock %}
+        
+{% block link %}
+    <link rel="stylesheet" href="{% static 'styles/home.css' %}">
+{% endblock %}
+
+{% block content %}
+<section class="projects">
+    {% for project in projects %}
+        {% include 'base/projects_component.html' %}
+    {% endfor %}
+</section>
+
+{% endblock %}
