@@ -15,6 +15,62 @@ class Profile(models.Model):
     followers = models.ManyToManyField('self', related_name='my_followers', symmetrical=False, blank=True)
     updated = models.DateTimeField(auto_now=True, blank=True)
     created = models.DateTimeField(auto_now_add=True, blank=True)
+    
+    class Meta:
+        ordering = ['updated', 'created']
+
+    def __str__(self):
+        return self.user_profile.username
+
+class Project(models.Model):
+    title = models.CharField(max_length=100)
+    image = CloudinaryField('image')
+    description = models.TextField()
+    live_link = models.URLField(blank=True)
+    user_project = models.ForeignKey(Profile ,on_delete=models.CASCADE)
+    ratings = models.ManyToManyField('Rating',related_name='ratings', blank=True)
+    updated = models.DateTimeField(auto_now=True)
+    created = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ['updated', 'created']
+
+    def __str__(self):
+        return self.title
+
+    def save_project(self):
+        self.save()
+
+    def delete_project(self):
+        self.delete()
+
+class Rating(models.Model):
+    creativity = models.IntegerField(default=5, help_text='value 1 to 10', validators=[MaxValueValidator(10),
+            MinValueValidator(1)]
+        )
+    design = models.IntegerField(default=5, help_text='value 1 to 10', validators=[MaxValueValidator(10),
+            MinValueValidator(1)]
+        )
+    usability = models.IntegerField(default=5, help_text='value 1 to 10', validators=[MaxValueValidator(10),
+            MinValueValidator(1)]
+        )
+    content = models.IntegerField(default=5, help_text='value 1 to 10', validators=[MaxValueValidator(10),
+            MinValueValidator(1)]
+        )
+    project = models.ForeignKey(Project ,on_delete=models.CASCADE)
+    rated_by = models.ForeignKey(User ,on_delete=models.CASCADE)
+    updated = models.DateTimeField(auto_now=True)
+    created = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ['updated', 'created']
+
+    def __str__(self):
+        return f'rated by:{self.rated_by.username}'
+
+    def get_average(self):
+        value = self.creativity + self.design + self.content + self.usability
+        return '%.2f'%(value/4)
 
 
 
