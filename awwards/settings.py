@@ -11,6 +11,14 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
 from pathlib import Path
+from decouple import config, Csv
+import django_heroku
+import dj_database_url
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api
+import os
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -40,6 +48,9 @@ INSTALLED_APPS = [
     'base.apps.BaseConfig',
     'bootstrap3',
     'rest_framework',
+    'cloudinary',
+    'cloudinary_storage',
+    
 ]
 
 MIDDLEWARE = [
@@ -73,6 +84,13 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'awwards.wsgi.application'
+
+cloudinary.config( 
+  cloud_name = "moringaa-school", 
+  api_key = "186324441262827", 
+  api_secret = "urf-U-uRGo65S-9U37zXg9EhA3k" 
+)
+
 
 
 # Database
@@ -120,10 +138,31 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATIC_URL = '/static/'
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'static'),
+)
 
-STATIC_URL = 'static/'
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+AUTH_PROFILE_MODULE = 'accounts.Profile'
+
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Cloudinary settings
+# cloudinary.config( 
+#   cloud_name = config('CLOUDINARY_NAME'), 
+#   api_key = config('CLOUDINARY_API_KEY'), 
+#   api_secret = config('CLOUDINARY_API_SECRET'),
+#   secure = config('CLOUDINARY_SECURE')
+# )
+
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+
