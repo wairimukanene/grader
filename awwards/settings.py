@@ -156,13 +156,7 @@ AUTH_PROFILE_MODULE = 'accounts.Profile'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# Cloudinary settings
-# cloudinary.config( 
-#   cloud_name = config('CLOUDINARY_NAME'), 
-#   api_key = config('CLOUDINARY_API_KEY'), 
-#   api_secret = config('CLOUDINARY_API_SECRET'),
-#   secure = config('CLOUDINARY_SECURE')
-# )
+
 
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 

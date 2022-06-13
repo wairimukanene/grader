@@ -170,8 +170,7 @@ def manage_follow(request, pk):
             current_user.following.remove(user_profile)  
         else:
             current_user.following.add(user_profile) 
-
-    return redirect('profile',pk=user_profile.id)
+            return redirect('profile',pk=user_profile.id)
 
 
 
