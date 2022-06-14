@@ -20,8 +20,39 @@ import cloudinary.api
 import os
 
 
+MODE=config("MODE", default="dev")
+SECRET_KEY = config('SECRET_KEY')
+DEBUG = config('DEBUG', default=False, cast=bool)
+# development
+if config('MODE')=="dev":
+   DATABASES = {
+       'default': {
+           'ENGINE': 'django.db.backends.postgresql_psycopg2',
+           'NAME': config('DB_NAME'),
+           'USER': config('DB_USER'),
+           'PASSWORD': config('DB_PASSWORD'),
+           'HOST': config('DB_HOST'),
+           'PORT': '',
+       }
+       
+   }
+# production
+else:
+   DATABASES = {
+       'default': dj_database_url.config(
+           default=config('DATABASE_URL')
+       )
+   }
+
+db_from_env = dj_database_url.config(conn_max_age=500)
+DATABASES['default'].update(db_from_env)
+
+ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=Csv())
+
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
 
 
 # Quick-start development settings - unsuitable for production
@@ -86,9 +117,9 @@ TEMPLATES = [
 WSGI_APPLICATION = 'awwards.wsgi.application'
 
 cloudinary.config( 
-  cloud_name = "moringaa-school", 
-  api_key = "186324441262827", 
-  api_secret = "urf-U-uRGo65S-9U37zXg9EhA3k" 
+    cloud_name = "moringaa-school", 
+    api_key = "186324441262827", 
+    api_secret = "urf-U-uRGo65S-9U37zXg9EhA3k" 
 )
 
 
@@ -143,6 +174,10 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+
+
 
 
 MEDIA_URL = '/media/'
@@ -155,6 +190,9 @@ AUTH_PROFILE_MODULE = 'accounts.Profile'
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+
 
 
 

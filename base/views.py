@@ -114,7 +114,7 @@ def submit_project(request):
                 messages.success(request, f'{request.user.username}, Your project was successfully submited')
                 return redirect('home')
         except Exception as e:
-            messages.error(request, 'An error occured during submition. Try again')
+            messages.error(request, 'An error occured during submission. Try again')
 
     context = { 'form': form }
     return render(request, 'base/submit_project_form.html', context)
