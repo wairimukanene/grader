@@ -126,14 +126,14 @@ cloudinary.config(
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'award',
-        'USER': 'wairimu',
-    'PASSWORD':'wairimu12',
-    }
-}
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'award',
+#         'USER': 'wairimu',
+#     'PASSWORD':'wairimu12',
+#     }
+# }
 
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
