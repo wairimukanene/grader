@@ -11,8 +11,6 @@ class Profile(models.Model):
     linkedln = models.URLField(blank=True, max_length=150)
     instagram = models.URLField(blank=True, max_length=150)
     twitter = models.URLField(blank=True, max_length=150)
-    following = models.ManyToManyField('self', related_name='i_am_following', symmetrical=False, blank=True)
-    followers = models.ManyToManyField('self', related_name='my_followers', symmetrical=False, blank=True)
     updated = models.DateTimeField(auto_now=True, blank=True)
     created = models.DateTimeField(auto_now_add=True, blank=True)
     
@@ -27,7 +25,7 @@ class Project(models.Model):
     image = CloudinaryField('image')
     description = models.TextField()
     live_link = models.URLField(blank=True)
-    user_project = models.ForeignKey(Profile ,on_delete=models.CASCADE)
+    user_project = models.ForeignKey(Profile ,on_delete=models.CASCADE, null=True)
     ratings = models.ManyToManyField('Rating',related_name='ratings', blank=True)
     updated = models.DateTimeField(auto_now=True)
     created = models.DateTimeField(auto_now_add=True)

@@ -6,7 +6,7 @@
 }
 
 .project-wrapper{
-  background-color: hsl(180, 2%, 13%);
+  background-color: hsla(180, 43%, 4%, 0.822);
   overflow: hidden;
 }
 
@@ -50,7 +50,7 @@
 }
 
 .project-name{
-  color:hsl(0, 0%, 96%);
+  color:hsl(180, 74%, 49%);
 }
 
 .project-username span:first-child{
@@ -93,8 +93,8 @@
 }
 
 .project-link{
-  background-color: hsl(173, 52%, 53%);
-  color: black;
+  background-color: hsl(345, 52%, 53%);
+  color: rgb(40, 226, 217);
   font-weight: 600;
   font-size: 0.8rem;
   border-radius: 0.9rem;

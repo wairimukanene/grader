@@ -57,7 +57,7 @@ def login_page(request):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
-            messages.success(request, f' Welcome back {request.user.username}, we\'ve missed you.')
+            messages.success(request, f' Welcome back {request.user.username}, ')
             return redirect('home')
         else:
             messages.error(request, 'Username or Password does not exist.')
@@ -93,28 +93,26 @@ def register_user(request):
     return render(request, 'base/login_register.html', context)
 
 def profile(request,pk):
-    user = Profile.objects.get(id=pk)
-    projects = user.project_set.all()
-    followers = user.followers.all()
-    following = user.following.all()
-
-    context = { 'user':user, 'projects':projects, 'followers':followers, 'following':following }
+    profile = Profile.objects.get_or_create(user_profile=request.user)
+    user = Profile.objects.filter(id=pk).all()
+    projects = Project.objects.all()
+  
+    context = { 'user':user, 'projects':projects}
     return render(request, 'base/profile.html', context)
 
 @login_required(login_url='login')
 def submit_project(request):
     form = ProjectForm()
+    profile = Profile.objects.get_or_create(user_profile=request.user)
     if request.method == 'POST':
-        try:
             form = ProjectForm(request.POST, request.FILES)
-            if form.is_valid:
+            if form.is_valid():
+                profile = Profile.objects.get_or_create(user_profile=request.user)
                 user = form.save(commit=False)
-                user.user_project_id = request.user.id
+                user.editor = request.user.profile
                 user.save()
-                messages.success(request, f'{request.user.username}, Your project was successfully submited')
+                messages.success(request, f'{request.user.username}, Your project was successfully submitted')
                 return redirect('home')
-        except Exception as e:
-            messages.error(request, 'An error occured during submission. Try again')
 
     context = { 'form': form }
     return render(request, 'base/submit_project_form.html', context)

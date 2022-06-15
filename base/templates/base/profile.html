@@ -7,16 +7,7 @@
 {% endblock %}
 
 {% block content%}
-    <section class="profile-container">
-        <article class="profile-wrapper">
-            <div class="profile-links">
-                <div class="facebook link"><i class='bx bxl-facebook tooltip'></i></div>
-                <div class="instagram link"><i class='bx bxl-instagram tooltip' ></i></div>
-                <div class="linkedln link"><i class='bx bxl-linkedin-square tooltip' ></i></div>
-                {% if request.user.is_authenticated %}
-                <div class="follow link">{{ followers.count }} Followers</div>
-                {% endif %}
-            </div>
+    
             <div class="profile-user">
                 <div class="profile-logo">{{ user.user_profile.username }}</div>
                 <div class="user-bio">
@@ -27,7 +18,7 @@
                 {% if request.user.id == user.user_profile.id %}
                 <div class="follow link">Edit Profile</div>
                 {% else %}
-                <a class="follow link" href="{% url 'manage-follow' user.id %}">Follow/Unfollow</a>
+
                 {% endif %}
             </div>
         </article>
@@ -38,7 +29,7 @@
         {% endif %}
         <article class="projects">
             {% for project in projects %}
-                {% include 'base/projects_component.html' %}
+                {% include 'base/project_component.html' %}
             {% endfor %}
         </article>
     </section>
