@@ -1,0 +1,140 @@
+body{
+  background-color: hsl(0, 0%, 23%);
+}
+
+section{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: calc(100vh - 4rem);
+}
+
+.submit-project-form{
+  position: relative;
+  padding: 2rem;
+  background-color: hsl(180, 2%, 13%);
+  min-width: 50vw;
+  display: grid;
+  row-gap: 20px;
+}
+
+.submit-project-form * {
+  width: 100%;
+}
+
+.title{
+  text-align: center;
+  font-size: 2rem;
+  text-transform: uppercase;
+  color: hsl(0, 0%, 96%);
+}
+
+.drop{
+  width: auto;
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+}
+
+.info-btn{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  background-color: hsl(180, 2%, 13%);
+}
+
+.info-tooltip{
+  font-size: 2rem;
+}
+
+.info-message-wrapper{
+  left: auto;
+  right: 0;
+  width: 1000%;
+}
+
+.info-message{
+  font-size: 1rem;
+  width: auto;
+}
+
+.info-message span:first-child{
+  color: yellow;
+}
+
+.info-message span:nth-child(2),
+.info-message span:last-child{
+  color: hsl(173, 52%, 53%);
+}
+
+.form-group {
+  position: relative;
+}
+
+.form-label{
+  position: absolute;
+  top: -10px;
+  left: 7px;
+  width: auto;
+  padding: 0 0.3rem;
+  background: hsl(180, 2%, 13%);
+  color: hsl(0, 0%, 96%);
+}
+
+.post-form-title,
+.post-form-link{
+  border: 2px solid hsl(173, 52%, 53%);
+  outline: none;
+  background: none;
+  height: 3rem;
+  color: hsl(0, 0%, 96%);
+  padding: 0 0.5rem;
+}
+
+.post-form-description{
+  border: 2px solid hsl(173, 52%, 53%);
+  outline: none;
+  background: none;
+  color: hsl(0, 0%, 96%);
+  padding: 0.5rem;
+}
+
+.image-group{
+  display: flex;
+  align-items: center;
+  gap: 00px;
+}
+
+.image-group label{
+  color: hsl(0, 0%, 96%);
+}
+
+.post-form-image{
+  color: hsl(0, 0%, 96%);
+  padding: 0 0.5rem;
+}
+
+.submit-project-btn{
+  outline: none;
+  border: none;
+  padding: 0.5rem;
+  height: 4rem;
+  font-size: 1rem;
+  font-weight: bold;
+  color:hsl(180, 2%, 13%);
+  text-transform: uppercase;
+  background-color: hsl(173, 52%, 53%);
+}
+
+.submit-project-btn:active{
+  color: hsl(0, 0%, 96%);
+  transform: scale(0.95);
+}
+
+input::-webkit-autofill,
+input::-webkit-autofill:hover,
+input::-webkit-autofill:focus,
+input::-webkit-autofill:active{
+  -webkit-text-fill-color: hsl(180, 2%, 13%) !important;
+}
