@@ -1,4 +1,4 @@
-**Instagram-clone**
+**awward-clone**
 
 A basic clone of the famous Awwards website. Performs user authentication, stores user data in a database and Images are stored in a CDN. The goal of this project is to do a bit of practice on django. It allows users to submit their projects for review or add reviews to other user's projects.
 ---
